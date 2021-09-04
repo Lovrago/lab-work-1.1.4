@@ -1,0 +1,53 @@
+a = list(map(int,input().split()))
+
+
+def find_n_сред():
+    N = len(a) #количество отпытов
+    i = 0 #счетчик
+    S = 0 #общаяя сумма
+    for i in range(0, N):
+        S = S + a[i]
+        i += 1
+    ncp20 = S / N #среднее число срабатываний счетчика для t = 20c
+    print('n.сред = ', ncp20)
+
+
+def find_сигма():
+    j = 0
+    s = 0 #сумма средних ошибок отд измерения в квадрате
+    for j in range(0, N):
+        s = s + (a[j] - ncp20) ** 2
+        j += 1
+    c20 = (s / N) ** 0.5 #средне квадратичная ошибка t = 20c
+    print('сигма отд измерения = ', c20)
+    print('сигма отд измерения по формуле корень из n.сред = ', ncp20 ** 0.5)
+
+
+def find_доля1():
+    k = 0
+    coun = 0 #счетчик
+    for k in range(0, N):
+        if a[k] >= (ncp20 - 1 * c20) and a[k] <= (ncp20 + 1 * c20):
+            coun = coun + 1
+    frac = (coun / N) * 100
+    print('доля при 1сигма',frac)
+
+
+def find_доля2():
+    k1 = 0
+    coun1 = 0 #счетчик
+    for k1 in range(0, N):
+        if a[k1] >= (ncp20 - 2 * c20) and a[k1] <= (ncp20 + 2 * c20):
+            coun1 = coun1 + 1
+    frac1 = (coun1 / N) * 100
+    print('доля при 2сигма', frac1)
+
+
+def find_t40():
+    l = 0
+    b = []
+    for l in range(0, N):
+        if l % 2 == 0:
+            b.append(a[l] + a[l + 1])
+            l += 1
+    print(b, len(b))
